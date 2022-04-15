@@ -3,6 +3,7 @@
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
+      <h1>1222</h1>
     </nav>
     <router-view/>
   </div>
