@@ -10,30 +10,30 @@
       text-color="#fff"
       active-text-color="#ffd04b"
       router
+      unique-opened
       >
-      <el-menu-item index="/main/index">
-        <i class="el-icon-message-solid"></i>
-        <span slot="title">后台首页</span>
+      <div v-for="item in powerarr" :key="item.url"> 
+      <el-menu-item :index="item.url" v-if="!item.children">
+        <i :class="item.icon"></i>
+        <span slot="title">{{item.name}}</span>
       </el-menu-item>
-      <el-menu-item index="/main/additem">
-        <i class="el-icon-s-promotion"></i>
-        <span slot="title">订单管理</span>
-      </el-menu-item>
-      <el-submenu index="1">
+      <el-submenu :index="item.url" v-else>
         <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>商品管理</span>
+          <i :class="item.icon"></i>
+          <span>{{item.name}}</span>
         </template>
-          <el-menu-item index="1-1">商品列表</el-menu-item>
-          <el-menu-item index="1-2">添加商品</el-menu-item>
-          <el-menu-item index="1-3">商品分类</el-menu-item>
+          <el-menu-item v-for="item1 in item.children" 
+          :key="item1.url" :index="item1.url">{{item1.name}}</el-menu-item>
+          
       </el-submenu>
+      </div>
+      
     </el-menu>
   </el-aside>
   <el-container>
     <el-header>
         <div>左侧面包屑</div>
-        <div>名字加头像</div>
+        <div>{{username}}</div>
     </el-header>
     <el-main>
         <router-view></router-view>
@@ -43,7 +43,67 @@
 </template>
 
 <script>
-export default {};
+  import { checktoken } from "@/api/apis"
+export default {
+  data(){
+    return{
+      username:'',//用户名
+      //动态菜单
+      list:[{url:'/main/index',icon:'el-icon-message-solid',name:'后台首页',roles:["super","normal"]},
+      {url:'/main/additem',icon:'el-icon-s-promotion',name:'订单管理',roles:["super","normal"]},
+      {url:'/main/items',icon:'el-icon-shopping-bag-1',name:'商品管理',children:[
+        {url:'/main/itemslist',name:'商品列表'},
+        {url:'/main/itemadd',name:'添加商品'},
+        {url:'/main/itemsort',name:'商品分类'}
+      ],roles:["super","normal"]},
+      {url:'/main/shops',icon:'el-icon-s-shop',name:'店铺管理',roles:["super"]},
+      {url:'/main/users',icon:'el-icon-user',name:'账号管理',children:[
+        {url:'/main/userslist',name:'用户列表'},
+        {url:'/main/usersadd',name:'添加用户'},
+        {url:'/main/userssort',name:'修改用户'}
+      ],roles:["super"]},
+      {url:'/main/total',icon:'el-icon-s-data',name:'销售统计',children:[
+        {url:'/main/saletotal',name:'销售统计'},
+        {url:'/main/ordertotal',name:'订单统计'}
+      ],roles:["super"]}]
+
+    }
+  },
+  computed:{
+    powerarr(){
+      //根据权限返回运算完毕的数组
+      //filter()  过滤函数
+      let newarr=this.list.filter(
+        (item)=>{
+          //返回包含此用户权限的数据
+        return  item.roles.includes(localStorage.role)
+        }
+      )
+      return newarr
+    }
+  },
+
+  created(){
+    //发送请求验证用户token是否失效
+
+    //super 超级用户 6大板块
+    // normal 前3大板块
+    console.log(localStorage)
+    checktoken(localStorage.token).then(
+      res=>{
+        console.log(res.data)
+        if(res.data.code==0){
+          //还在有效期
+          this.username=localStorage.acc
+
+        }else{
+          //无效
+           this.username="请登录"
+        }
+      }
+    )
+  }
+};
 </script>
 
 <style lang="less" scoped>

@@ -9,32 +9,53 @@
                 v-model="acc" clearable>
             </el-input>
             <el-input placeholder="请输入密码" v-model="pwd" show-password class="input"></el-input>
+          <p style="color:red;font-size:5px;margin-left:6px;">{{errormsg}}</p>
             <el-button type="primary"  class="button" @click="clickLogin">登录</el-button>
+            
         </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
+import { login } from "@/api/apis"; //  @/相当于直接切换到src的根目录
 export default {
-    data(){
-        return{
-            acc:'',
-            pwd:''
+  data() {
+    return {
+      acc: "",
+      pwd: "",
+      errormsg: "" //错误提示
+    };
+  },
+  methods: {
+    clickLogin() {
+      // console.log(this.acc,this.pwd)
+      // console.log(login)
+      // get post 区别  post对象传参  get多params:{参数}
+      login(this.acc, this.pwd).then(res => {
+        // console.log(res.data)
+        // console.log(res.data.msg)
+
+        if (res.data.code == 0) {
+            //写入token
+            localStorage.token=res.data.token
+            //写入role
+            localStorage.role=res.data.role
+            //存入用用户名
+            localStorage.acc=this.acc
+            // localStorage.setItem("token",res.data.token)
+          //成功
+          //this.$router指向main.js中注入的router对象实例
+          this.$router.push("/main/index"); //改变hash地址
+          this.$message({
+            message: "恭喜你，登录成功",
+            type: "success"
+          });
+        } else {
+          this.errormsg = res.data.msg;
         }
-    },
-    methods:{
-        clickLogin(){
-            console.log(this.acc,this.pwd)
-            // get post 区别  post对象传参  get多params:{参数}
-            axios.post("http://127.0.0.1:5000/users/checkLogin",{account:this.acc,password:this.pwd})
-            .then(
-                (res)=>{
-                    console.log(res)
-                }
-            )
-        }
+      });
     }
+  }
 };
 </script>
 
@@ -56,14 +77,14 @@ export default {
   padding-top: 10px;
 }
 
-.input{
-    margin: 5px;
-    margin-top: 20px;
+.input {
+  margin: 5px;
+  margin-top: 20px;
 }
-.button{
-    margin-top: 10px;
-    width: 100%;
-    padding-left: 10px;
-    margin-left: 4px;
+.button {
+  margin-top: 10px;
+  width: 100%;
+  padding-left: 10px;
+  margin-left: 4px;
 }
 </style>
