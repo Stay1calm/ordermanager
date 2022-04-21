@@ -12,6 +12,15 @@ export function login(account,password){
 // export var login=(account,password)=>axios.post("/users/checkLogin",{account:account,password:password})   
 //验证token
 export var checktoken=(token)=>axios.get("/users/checktoken",{params:{token}})
+
+// -----------------------账号管理API------------------------
+export var useradd=(account,password,userGroup)=>axios.post('/users/add',{account,password,userGroup})
+//  用户列表
+export var userlist=(currentPage,pageSize)=>axios.get('/users/list',{params:{currentPage,pageSize}})
+//  删除用户
+export var userdel=(id)=>axios.get('/users/del',{params:{id}})
+//  批量删除用户
+export var userbatchdel=(ids)=>axios.get('/users/batchdel',{params:{ids}})
 // export login  多次暴露  接收 import {} from 'xxx
 // export default xxx  只能暴露一个内容  接 import xxx from 'xxx  若要暴露多了 可以添加对象
 
