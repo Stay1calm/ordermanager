@@ -45,6 +45,12 @@ const router = new VueRouter({
           path:'/main/userslist',
           name:'/main/userslist',
           component:()=>import('../views/main/users/UserList')
+        },
+        //修改用户
+        {
+          path:'/main/usersedit',
+          name:'/main/usersedit',
+          component:()=>import('../views/main/users/UserEdit')
         }
     ] 
     }

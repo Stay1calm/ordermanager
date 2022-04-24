@@ -2,7 +2,7 @@
 <el-container>
   <el-aside width="200px">
       <el-menu
-      default-active="/main/index"
+      :default-active="curhash"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"
@@ -33,7 +33,8 @@
   <el-container>
     <el-header>
         <div>左侧面包屑</div>
-        <div>{{username}}</div>
+        <div>{{username}}
+        <img :src="headImg" style="width:50px;border-radius:50%"/></div>
     </el-header>
     <el-main>
         <router-view></router-view>
@@ -43,7 +44,7 @@
 </template>
 
 <script>
-import { checktoken } from "@/api/apis";
+import { checktoken ,accountinfo} from "@/api/apis";
 export default {
   data() {
     return {
@@ -86,7 +87,7 @@ export default {
           children: [
             { url: "/main/userslist", name: "用户列表" },
             { url: "/main/usersadd", name: "添加用户" },
-            { url: "/main/userssort", name: "修改用户" }
+            { url: "/main/usersedit", name: "修改用户" }
           ],
           roles: ["super"]
         },
@@ -100,7 +101,9 @@ export default {
           ],
           roles: ["super"]
         }
-      ]
+      ],
+      curhash:'',//当前的hash
+      headImg:'' //用户头像
     };
   },
   computed: {
@@ -116,13 +119,16 @@ export default {
   },
 
   created() {
+    // 获取hash
+    // this.$router  //整个最大的路由对象  页面跳转
+    this.curhash=this.$route.path  //当前的路由对象
     //发送请求验证用户token是否失效
 
     //super 超级用户 6大板块
     // normal 前3大板块
     // console.log(localStorage);
     checktoken(localStorage.token).then(res => {
-      // console.log(res.data);
+      // console.log(res);
       if (res.data.code == 0) {
         //还在有效期
         this.username = localStorage.acc;
@@ -130,7 +136,14 @@ export default {
         //无效
         this.username = "请登录";
       }
-    });
+    }),
+    // 获取个人信息 头像
+    accountinfo(localStorage.id).then(
+      res=>{
+        // console.log(res.data)
+        this.headImg=res.data.accountInfo.imgUrl
+      }
+    )
   },
   //路由监听 原生onhashchange
    

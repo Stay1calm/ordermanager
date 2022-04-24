@@ -1,5 +1,5 @@
 <template>
-  <el-card class="box-card">
+  <el-card class="box-card" >
     <div slot="header" class="clearfix">
       <span>添加账户</span>
     </div>
@@ -39,7 +39,7 @@
     <el-row>
       <el-col :span="6" :push="1">
         <el-button type="primary" size="small" @click="clickAdd">新增用户</el-button>
-        <el-button size="small">重置</el-button>
+        <el-button @click="reset()">重置</el-button>
       </el-col>
     </el-row>
   </el-card>
@@ -76,7 +76,11 @@ export default {
             }
            }
        )
-   }
+   },
+    reset() {
+        this.acc='';
+        this.pwd='';
+      }
   }
 };
 </script>

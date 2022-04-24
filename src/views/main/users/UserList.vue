@@ -8,19 +8,31 @@
     <el-table-column  type="selection"></el-table-column>
     <el-table-column
       label="账号名称"   prop="account">
+      <template slot-scope="scope"> 
+          <span v-show="!scope.row.isEdit">{{scope.row.account}}</span>
+          <el-input v-show="scope.row.isEdit" v-model="scope.row.account"/>
+        </template>
     </el-table-column>
     <el-table-column
       label="注册时间"    prop="ctime">
+      <template slot-scope="scope"> 
+          <span v-show="!scope.row.isEdit">{{scope.row.ctime}}</span>
+          <el-input v-show="scope.row.isEdit" v-model="scope.row.ctime"/>
+        </template>
     </el-table-column>
     <el-table-column
       label="用户组"   prop="userGroup">
+        <template slot-scope="scope"> 
+          <span v-show="!scope.row.isEdit">{{scope.row.userGroup}}</span>
+          <el-input v-show="scope.row.isEdit" v-model="scope.row.userGroup"/>
+        </template>
     </el-table-column>
     <el-table-column label="操作">
    
       <template slot-scope="scope">
         <el-button
           size="mini"
-          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          @click="handleEdit(scope)">{{ scope.row.isEdit? '完成':'编辑'}}</el-button>
         <el-button
           size="mini"
           type="danger"
@@ -42,7 +54,7 @@
 </template>
 
 <script>
-import { userlist, userdel, userbatchdel } from "@/api/apis";
+import { userlist, userdel, userbatchdel,useredit } from "@/api/apis";
 import { getChinaTime } from "@/utils/utils";
 export default {
   data() {
@@ -55,8 +67,33 @@ export default {
     };
   },
   methods: {
-    handleEdit(index, row) {
-      console.log(index, row);
+    //编辑
+    handleEdit(scope) {
+     
+      if(scope.row.isEdit){
+          //改变数据
+        scope.row.isEdit=false
+        useredit(scope.row.id,scope.row.account,scope.row.userGroup).then(
+          res=>{
+            // console.log(res.data)
+            if(res.data.code==0){
+              this.$message({
+              message: '恭喜你,用户信息修改成功',
+              type: 'success'
+            })
+            ;
+            }else{
+              this.$message.error('请稍后再试');
+            }
+            
+          }
+        )
+
+      }else{
+        //打开编辑
+        scope.row.isEdit=true
+      }
+      // console.log(scope)
     },
     handleDelete(index) {
       // console.log(index, row);
@@ -97,6 +134,7 @@ export default {
         let arr = res.data.data;
         for (let iterator of arr) {
           iterator.ctime = getChinaTime(iterator.ctime);
+          iterator.isEdit=false    //此对象是否在编辑状态
         }
         //本页数据
         this.tableData = arr;

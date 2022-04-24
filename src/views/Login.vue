@@ -42,6 +42,8 @@ export default {
             localStorage.role=res.data.role
             //存入用用户名
             localStorage.acc=this.acc
+            //存入id
+            localStorage.id=res.data.id
             // localStorage.setItem("token",res.data.token)
           //成功
           //this.$router指向main.js中注入的router对象实例

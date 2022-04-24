@@ -21,6 +21,10 @@ export var userlist=(currentPage,pageSize)=>axios.get('/users/list',{params:{cur
 export var userdel=(id)=>axios.get('/users/del',{params:{id}})
 //  批量删除用户
 export var userbatchdel=(ids)=>axios.get('/users/batchdel',{params:{ids}})
+//  修改用户信息
+export var useredit=(id,account,userGroup)=>axios.post('/users/edit',{id,account,userGroup})
+//   获取个人信息 头像
+export var accountinfo=(id)=>axios.get('/users/accountinfo',{params:{id}})
 // export login  多次暴露  接收 import {} from 'xxx
 // export default xxx  只能暴露一个内容  接 import xxx from 'xxx  若要暴露多了 可以添加对象
 
