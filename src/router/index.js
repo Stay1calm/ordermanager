@@ -26,31 +26,43 @@ const router = new VueRouter({
         {
         path:'/main/index',
         name:'/main/index',
-        component:()=>import('../views/main/Index')
+        component:()=>import('../views/main/Index'),
+        meta:{breadList:["首页"]}
       },
         //订单管理
         {
           path:'/main/additem',
           name:'/main/additem',
-          component:()=>import('../views/main/addItem')
+          component:()=>import('../views/main/addItem'),
+          meta:{breadList:["订单管理","添加订单"]}
         },
         // 账号管理  添加账号
         {
           path:'/main/usersadd',
           name:'/main/usersadd',
-          component:()=>import('../views/main/users/UserAdd')
+          component:()=>import('../views/main/users/UserAdd'),
+          meta:{breadList:["账号管理","添加用户"]}
         },
         // 账号管理  用户列表
         {
           path:'/main/userslist',
           name:'/main/userslist',
-          component:()=>import('../views/main/users/UserList')
+          component:()=>import('../views/main/users/UserList'),
+          meta:{breadList:["账号管理","用户列表"]}
         },
         //修改用户
         {
           path:'/main/usersedit',
           name:'/main/usersedit',
-          component:()=>import('../views/main/users/UserEdit')
+          component:()=>import('../views/main/users/UserEdit'),
+          meta:{breadList:["账号管理","修改用户"]}
+        },
+        //商品分类
+        {
+          path:'/main/itemsort',
+          name:'/main/itemsort',
+          component:()=>import('../views/main/items/itemSort'),
+          meta:{breadList:["商品管理","商品分类"]}
         }
     ] 
     }

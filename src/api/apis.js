@@ -23,8 +23,14 @@ export var userdel=(id)=>axios.get('/users/del',{params:{id}})
 export var userbatchdel=(ids)=>axios.get('/users/batchdel',{params:{ids}})
 //  修改用户信息
 export var useredit=(id,account,userGroup)=>axios.post('/users/edit',{id,account,userGroup})
-//   获取个人信息 头像
+//  获取个人信息 头像
 export var accountinfo=(id)=>axios.get('/users/accountinfo',{params:{id}})
+//  获取商品分类
+export var catelist=(currentPage,pageSize)=>axios.get('/goods/catelist',{params:{currentPage,pageSize}})
+//  修改分类
+export var editcate=(params)=>axios.post('/goods/editcate',params)
+
+
 // export login  多次暴露  接收 import {} from 'xxx
 // export default xxx  只能暴露一个内容  接 import xxx from 'xxx  若要暴露多了 可以添加对象
 

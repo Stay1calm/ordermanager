@@ -32,10 +32,15 @@
   </el-aside>
   <el-container>
     <el-header>
-        <div>左侧面包屑</div>
+        <div>
+          <el-breadcrumb separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item v-for="item in breadList" :key="item">{{item}}</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
         <div>{{username}}
         <img :src="headImg" style="width:50px;border-radius:50%"/></div>
     </el-header>
+    <!-- 二级路由 -->
     <el-main>
         <router-view></router-view>
     </el-main>
@@ -103,7 +108,8 @@ export default {
         }
       ],
       curhash:'',//当前的hash
-      headImg:'' //用户头像
+      headImg:'', //用户头像
+      breadList:[] //面包菜单
     };
   },
   computed: {
@@ -137,17 +143,36 @@ export default {
         this.username = "请登录";
       }
     }),
-    // 获取个人信息 头像
-    accountinfo(localStorage.id).then(
+    //刷新用户信息
+    this.refresh() ;
+    //监听bus的传递事件
+    this.$bus.$on("imguploadfinish",()=>{
+      this.refresh()  //刷新个人信息
+    })
+    // 初始化给二级导航赋值
+   this.breadList= this.$route.meta.breadList
+  },
+  methods:{
+      refresh(){
+        // 获取个人信息 头像
+      accountinfo(localStorage.id).then(
       res=>{
         // console.log(res.data)
         this.headImg=res.data.accountInfo.imgUrl
       }
     )
+      }
   },
   //路由监听 原生onhashchange
-   
-
+  //watch 可以观察vue很多属性的变化 包括hash值
+  watch:{
+    // 要检查谁的变化  to切换到哪里 from 来自于哪里
+    $route(to,from){
+      // console.log(11111111111)
+      console.log(to)
+      this.breadList=to.meta.breadList;
+    }
+  }
 };
 </script>
 

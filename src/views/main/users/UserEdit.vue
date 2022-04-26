@@ -1,17 +1,19 @@
 <template>
+<div>
+    <div style="margin-bottom:10px;"> 头像上传点击下方＋号</div> 
     <div style="border:1px dashed grey;width:80px">
         <el-upload
             class="avatar-uploader"
             action="http://127.0.0.1:5000/users/avatar_upload"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload"
             :data="uploaddata"
             >
             <img v-if="imageUrl" :src="imageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
     </div>
+</div>
 </template>
 
 <script>
@@ -31,7 +33,9 @@ export default {
                  this.$message({
                     message: '图片上传成功',
                     type: 'success'
-        });
+                });
+                //2.发出通知
+         this.$bus.$emit("imguploadfinish");
 
             }
         }
