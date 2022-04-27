@@ -63,6 +63,13 @@ const router = new VueRouter({
           name:'/main/itemsort',
           component:()=>import('../views/main/items/itemSort'),
           meta:{breadList:["商品管理","商品分类"]}
+        },
+        //
+        {
+          path:'/main/itemadd',
+          name:'/main/itemadd',
+          component:()=>import('../views/main/items/addItem'),
+          meta:{breadList:["商品管理","添加商品"]}
         }
     ] 
     }

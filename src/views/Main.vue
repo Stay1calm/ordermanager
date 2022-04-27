@@ -4,8 +4,6 @@
       <el-menu
       :default-active="curhash"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
@@ -37,7 +35,7 @@
             <el-breadcrumb-item v-for="item in breadList" :key="item">{{item}}</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
-        <div>{{username}}
+        <div><span>{{username}}</span>
         <img :src="headImg" style="width:50px;border-radius:50%"/></div>
     </el-header>
     <!-- 二级路由 -->
@@ -188,6 +186,15 @@ export default {
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
+  height: 100px
+}
+.el-header div img{
+  margin-left: 25px;
+}
+.el-header div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .el-aside {

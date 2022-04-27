@@ -1,7 +1,13 @@
 import axios from 'axios'
 
+const IP='http://127.0.0.1:5000'
 //请求基本路径
-axios.defaults.baseURL='http://127.0.0.1:5000'
+axios.defaults.baseURL=IP;
+
+//商品图片上传接口地址
+export const ITEMS_IMG_UPLOAD = IP + '/goods/goods_img_upload'
+//获取商品图片地址
+export const GET_ITEMS_IMG = IP + '/upload/imgs/goods_img/'
 
 //登录  account,password  账户 密码
 export function login(account,password){
@@ -29,6 +35,10 @@ export var accountinfo=(id)=>axios.get('/users/accountinfo',{params:{id}})
 export var catelist=(currentPage,pageSize)=>axios.get('/goods/catelist',{params:{currentPage,pageSize}})
 //  修改分类
 export var editcate=(params)=>axios.post('/goods/editcate',params)
+//  添加商品
+export var addgoods=(params)=>axios.post('/goods/add',params)
+// 获取商品所有分类
+export var categories = () => axios.get('/goods/categories')
 
 
 // export login  多次暴露  接收 import {} from 'xxx

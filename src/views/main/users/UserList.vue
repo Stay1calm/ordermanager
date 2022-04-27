@@ -3,8 +3,12 @@
    <el-button type="danger" plain @click="deleteAll(ids)" class="deleteAll">批量删除</el-button>
     <el-table
     :data="tableData"
-    style="width: 100%"
-    @selection-change="handleSelectionChange">
+    style="width: 100%;height:310px"
+    @selection-change="handleSelectionChange"
+    v-loading="loading"
+    element-loading-text="拼命加载中"
+    element-loading-spinner="el-icon-loading"
+    >
     <el-table-column  type="selection"></el-table-column>
     <el-table-column
       label="账号名称"   prop="account">
@@ -63,7 +67,8 @@ export default {
       currentPage: 1, //当前页数
       total: 0, //总数据条数
       pageSize: 5 ,//每页显示条数
-      ids:''
+      ids:'',
+      loading:true
     };
   },
   methods: {
@@ -120,6 +125,8 @@ export default {
         });
     },
     getUserList() {
+      this.loading=true
+      // setTimeout(()=>{
       userlist(this.currentPage, this.pageSize).then(res => {
         // console.log(res);
         /**
@@ -140,7 +147,9 @@ export default {
         this.tableData = arr;
         //  总商品条数
         this.total = res.data.total;
-      });
+        this.loading=false
+      })
+      // },2500);
     },
     // 点击切换条数
     handleSizeChange(val) {

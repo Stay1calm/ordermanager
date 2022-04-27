@@ -62,6 +62,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
 .login-box {
   height: 100%;
   width: 100%;
@@ -69,6 +70,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: url('../../public/980.jpg') no-repeat center ;
+  background-size:  100% 100%
 }
 .center-box {
   width: 300px;

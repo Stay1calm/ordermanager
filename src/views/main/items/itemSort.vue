@@ -89,12 +89,12 @@ export default {
         }
     },
     handleDelete(scope){
-         console.log(scope)
+        //  console.log(scope)
     },
     //刷新表格数据
     refresh(){
       catelist(this.currentPage, this.pagesize).then(res => {
-    //   console.log(res.data);
+      // console.log(res.data);
       let datalist = res.data.data;//数据源
       for (let index = 0; index < datalist.length; index++) {
           datalist[index].state=datalist[index].state==1 
