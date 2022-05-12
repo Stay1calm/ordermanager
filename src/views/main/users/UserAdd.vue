@@ -71,6 +71,7 @@ export default {
                  message: '恭喜你，账号添加成功',
                  type: 'success'
             });
+            location.href='#/main/userslist'
             }else{
                 this.$message.error('错了哦，账号添加失败');
             }

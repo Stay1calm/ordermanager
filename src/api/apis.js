@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const IP='http://127.0.0.1:5000'
+// const IP='http://192.168.1.122:80'
 //请求基本路径
 axios.defaults.baseURL=IP;
 
@@ -12,6 +13,7 @@ export const GET_ITEMS_IMG = IP + '/upload/imgs/goods_img/'
 //登录  account,password  账户 密码
 export function login(account,password){
    return axios.post("/users/checkLogin",{account:account,password:password})         
+//    return axios.post("/user/login",{username:username,password:password})         
 }
 
 //es6n 如果需要return 则不需要return语句
@@ -37,9 +39,24 @@ export var catelist=(currentPage,pageSize)=>axios.get('/goods/catelist',{params:
 export var editcate=(params)=>axios.post('/goods/editcate',params)
 //  添加商品
 export var addgoods=(params)=>axios.post('/goods/add',params)
-// 获取商品所有分类
+//  获取商品所有分类
 export var categories = () => axios.get('/goods/categories')
+//  获取商品列表
+export var list = (currentPage,pageSize) => axios.get('/goods/list',{params:{currentPage,pageSize}})
+//  删除商品
+export var goodsdel=(id)=>axios.get('/goods/del',{params:{id}})
+//  修改商品 
+export var goodsedit=(params)=>axios.post('/goods/edit',params)
 
+//  订单管理
+export var orderlist = (params) => axios.get('/order/list', { params })
+
+
+//  报表api
+export var echartss=()=>axios.get('/order/totaldata')
+
+//  订单数据显示
+export var orderechasrts=(date)=>axios.get('/order/ordertotal',{params:{date}})
 
 // export login  多次暴露  接收 import {} from 'xxx
 // export default xxx  只能暴露一个内容  接 import xxx from 'xxx  若要暴露多了 可以添加对象

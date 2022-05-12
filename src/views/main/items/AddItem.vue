@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     clickAddItem() {
-        //  console.log(this.iteminfo)
+         console.log(this.iteminfo)
       addgoods({
         name: this.name,
         category: this.selectvalue,
@@ -102,10 +102,16 @@ export default {
       }).then(res => {
         console.log(res);
         if (res.data.code == 0) {
+          this.price=0
+          this.name=''
+          this.selectvalue=''
+          this.imgUrl=''
+          this.iteminfo=''
           this.$message({
-            message: "玉团系统提示:添加商品成功,请至商品列表查看",
+            message: "添加商品成功,请至商品列表查看",
             type: "success"
           });
+          location.href='#/main/itemslist'
         }else{
              this.$message.error('请稍后再试哦');
         }

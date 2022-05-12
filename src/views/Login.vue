@@ -6,9 +6,9 @@
         <div class="center-box">
             <el-input class="input"
                 placeholder="请输入内容"
-                v-model="acc" clearable>
+                v-model="account" clearable>
             </el-input>
-            <el-input placeholder="请输入密码" v-model="pwd" show-password class="input"></el-input>
+            <el-input placeholder="请输入密码" v-model="password" show-password class="input"></el-input>
           <p style="color:red;font-size:5px;margin-left:6px;">{{errormsg}}</p>
             <el-button type="primary"  class="button" @click="clickLogin">登录</el-button>
             
@@ -21,8 +21,8 @@ import { login } from "@/api/apis"; //  @/相当于直接切换到src的根目�
 export default {
   data() {
     return {
-      acc: "",
-      pwd: "",
+      account: "",
+      password: "",
       errormsg: "" //错误提示
     };
   },
@@ -31,17 +31,17 @@ export default {
       // console.log(this.acc,this.pwd)
       // console.log(login)
       // get post 区别  post对象传参  get多params:{参数}
-      login(this.acc, this.pwd).then(res => {
-        // console.log(res.data)
+      login(this.account, this.password).then(res => {
+        console.log(res.data)
         // console.log(res.data.msg)
-
+        // console.log(res);
         if (res.data.code == 0) {
             //写入token
             localStorage.token=res.data.token
             //写入role
             localStorage.role=res.data.role
             //存入用用户名
-            localStorage.acc=this.acc
+            localStorage.account=this.account
             //存入id
             localStorage.id=res.data.id
             // localStorage.setItem("token",res.data.token)
@@ -62,7 +62,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 .login-box {
   height: 100%;
   width: 100%;
@@ -70,8 +69,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('../../public/980.jpg') no-repeat center ;
-  background-size:  100% 100%
+  background: url("../../public/980.jpg") no-repeat center;
+  background-size: 100% 100%;
 }
 .center-box {
   width: 300px;

@@ -29,12 +29,12 @@ const router = new VueRouter({
         component:()=>import('../views/main/Index'),
         meta:{breadList:["首页"]}
       },
-        //订单管理
+        //订单管理 
         {
-          path:'/main/additem',
-          name:'/main/additem',
-          component:()=>import('../views/main/addItem'),
-          meta:{breadList:["订单管理","添加订单"]}
+          path:'/main/orderman',
+          name:'/main/orderman',
+          component:()=>import('../views/main/OrderManger'),
+          meta:{breadList:["订单管理"]}
         },
         // 账号管理  添加账号
         {
@@ -64,13 +64,27 @@ const router = new VueRouter({
           component:()=>import('../views/main/items/itemSort'),
           meta:{breadList:["商品管理","商品分类"]}
         },
-        //
+        //商品添加
         {
           path:'/main/itemadd',
           name:'/main/itemadd',
           component:()=>import('../views/main/items/addItem'),
           meta:{breadList:["商品管理","添加商品"]}
-        }
+        },
+        //商品列表
+        {
+          path:'/main/itemslist',
+          name:'/main/itemslist',
+          component:()=>import('../views/main/items/itemList'),
+          meta:{breadList:["商品管理","商品列表"]}
+        },
+        // 订单统计
+        {
+          path:'/main/ordertotal',
+          name:'/main/ordertotal',
+          component:()=>import('../views/main/statistics/OrderTotal'),
+          meta:{breadList:["商品管理","商品列表"]}
+        },
     ] 
     }
  ]
