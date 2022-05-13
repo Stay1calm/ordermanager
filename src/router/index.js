@@ -85,6 +85,12 @@ const router = new VueRouter({
           component:()=>import('../views/main/statistics/OrderTotal'),
           meta:{breadList:["商品管理","商品列表"]}
         },
+        {
+          path:'/main/shopsman',
+          name:'/main/shopsman',
+          component:()=>import('../views/main/ShopsMan'),
+          meta:{breadList:["店铺管理"]}
+        },
     ] 
     }
  ]

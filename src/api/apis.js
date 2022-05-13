@@ -10,6 +10,11 @@ export const ITEMS_IMG_UPLOAD = IP + '/goods/goods_img_upload'
 //获取商品图片地址
 export const GET_ITEMS_IMG = IP + '/upload/imgs/goods_img/'
 
+//上传店铺头像
+export const UPLOAD_SHOP_IMG = IP + '/shop/upload'
+//获取商品图片地址
+export const GET_SHOPS_IMG = IP + '/upload/shop/'
+
 //登录  account,password  账户 密码
 export function login(account,password){
    return axios.post("/users/checkLogin",{account:account,password:password})         
@@ -58,6 +63,11 @@ export var echartss=()=>axios.get('/order/totaldata')
 //  订单数据显示
 export var orderechasrts=(date)=>axios.get('/order/ordertotal',{params:{date}})
 
+// ======================店铺管理=================================
+// 获取店铺详情
+export var shopsman=()=>axios.get('/shop/info')
+// 28. 店铺内容修改
+export var shopsedit=(params)=>axios.post('/shop/edit',params)
 // export login  多次暴露  接收 import {} from 'xxx
 // export default xxx  只能暴露一个内容  接 import xxx from 'xxx  若要暴露多了 可以添加对象
 

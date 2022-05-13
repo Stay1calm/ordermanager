@@ -81,7 +81,7 @@ export default {
           roles: ["super", "normal"]
         },
         {
-          url: "/main/shops",
+          url: "/main/shopsman",
           icon: "el-icon-s-shop",
           name: "店铺管理",
           roles: ["super"]
@@ -93,7 +93,7 @@ export default {
           children: [
             { url: "/main/userslist", name: "用户列表" },
             { url: "/main/usersadd", name: "添加用户" },
-            { url: "/main/usersedit", name: "修改用户" }
+            { url: "/main/usersedit", name: "修改头像" }
           ],
           roles: ["super"]
         },
